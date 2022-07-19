@@ -1,7 +1,7 @@
   opc_sel = 0;
-  itemlist = {"- Bisecci贸n", "- Falsa posici贸n", "- Newton Raphson", "- Secante", "Salir"};
+  itemlist = {"- Bisecci贸n", "- Falsa posici贸n", "- Newton Raphson", "- Secante","- Cramer", "Salir"};
 
-  while (opc_sel != 5)
+  while (opc_sel != 6)
 
       opc_sel = listdlg ("ListString", itemlist,
       "Name", "Seleccione un m茅todo",
@@ -323,6 +323,78 @@
                 disp("Error al ejecutar el metodo de la Secante")
                 return %borrar
               end_try_catch
+              
+          % cramer
+          case 5  
+              clc;
+              error = 1; % si es 0 no hay errores
+              msg_error = "";
+
+              matiz_a = "[1 1 2; 2 4 -3 ; 3 6 -5]";
+              vector_ter_independientes = "[9 1 0]";
+
+              % pedir matiz_a
+              while(error != 0)
+                try
+                  respuesta = inputdlg({"Ingrese la matriz A ejem: [1 1 1; 2 2 2 ; 3 3 3]"}, "Datos necesarios", 1,{matiz_a});
+
+                  matiz_a = str2num(respuesta{1});
+
+                  if(isempty(matiz_a))
+                    msg_error = "Matriz no v醠ida";
+                    disp("Matriz no v醠ida");
+                    error = 1;
+                    questdlg (strcat("ERROR\n",msg_error), "ERROR");
+                    continue
+                  endif
+
+                  error = 0;
+                  msg_error = "";
+                catch err
+                  disp("Error tomando matriz")
+                  disp(err)
+                  error = 1;
+                  msg_error = "Error en el proceso";
+                end_try_catch
+              endwhile
+
+              error = 1;
+              msg_error = "";
+
+              % pedir funcion
+              while(error != 0)
+                try
+                  respuesta = inputdlg({"Ingrese la matriz t閞minos independientes ejem: [4 4 4]"}, "Datos necesarios", 1,{vector_ter_independientes});
+
+                  vector_ter_independientes = str2num(respuesta{1});
+
+                  if(isempty(vector_ter_independientes))
+                    msg_error = "Matriz no v醠ida";
+                    disp("Matriz no v醠idaa");
+                    error = 1;
+                    questdlg (strcat("ERROR\n",msg_error), "ERROR");
+                    continue
+                  endif
+
+                  error = 0;
+                  msg_error = "";
+                catch err
+                  disp("Error tomando matriz")
+                  disp(err)
+                  error = 1;
+                  msg_error = "Error en el proceso";
+                end_try_catch
+              endwhile
+              
+              try
+                  cramer(matiz_a, vector_ter_independientes);
+              catch
+                disp("Error al ejecutar el metodo de cramer")
+                return %borrar
+              end_try_catch
+          
+          case 6
+          
           otherwise
               disp("Hasta pronto...")
           endswitch
