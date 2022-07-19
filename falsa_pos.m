@@ -23,7 +23,7 @@ function ret = falsa_pos(a, b, str_fun)
 
                 for i = 1:n_iteraciones
 
-                    Mn = formula_mn(a, b);
+                    Mn = formula_mn(a, b, str_fun);
 
                     if fx(a) * fx(Mn) < 0
                         b = (Mn);
@@ -51,7 +51,7 @@ function ret = falsa_pos(a, b, str_fun)
 
                 for i = 1:n_iteraciones
 
-                    Mn = formula_mn(a, b);
+                    Mn = formula_mn(a, b, str_fun);
 
                     fprintf("%d\t", i)
                     fprintf("%.4f\t", a)
@@ -91,7 +91,7 @@ function ret = falsa_pos(a, b, str_fun)
 
                 for i = 1:n_iteraciones
 
-                    Mn = formula_mn(a, b);
+                    Mn = formula_mn(a, b, str_fun);
 
                     if fx(a) * fx(Mn) < 0
                         b = (Mn);
@@ -119,7 +119,7 @@ function ret = falsa_pos(a, b, str_fun)
 
                 for i = 1:n_iteraciones
 
-                    Mn = formula_mn(a, b);
+                    Mn = formula_mn(a, b, str_fun);
 
                     fprintf("%d\t", i)
                     fprintf("%.4f\t", a)
@@ -141,7 +141,7 @@ function ret = falsa_pos(a, b, str_fun)
                         mn_anterior = Mn;
                     else
                         error = abs((Mn - mn_anterior) / Mn);
-                        mn_anterior = Mn;
+                        mn_anterior = (Mn);
                     endif
 
                     ## mostrat error
@@ -170,7 +170,9 @@ function ret = falsa_pos(a, b, str_fun)
 
 end
 
-function ret = formula_mn(a, b)
+function ret = formula_mn(a, b, str_fun)
     ## Esta es la formula para mn
-    ret = (a + b) / 2;
+    fx = inline(str_fun);
+
+    ret = ((a*fx(b))-(b*fx(a)))/(fx(b)-fx(a));
 end
