@@ -3,6 +3,15 @@
 function ret = newton_raphson(x0, str_fun, str_fun_der)
 fprintf ("***METODO DE NEWTON RAPSHON***\n");
 
+  opc_sel = 0;
+  itemlist = {"- Bisección", "- Falsa posición", "Metodo 3", "Salir"};
+
+  opc_sel = listdlg ("ListString", itemlist,
+  "Name", "Seleccione",
+  "SelectionMode", "Single");
+
+  disp(strcat("Quiero: ", itemlist{opc_sel}))
+
   #f='7*e^(x)*sin(x)-1';
   f = str_fun;
   f = inline(f);
