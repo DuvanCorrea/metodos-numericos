@@ -1,50 +1,52 @@
 #PARÁMETROS
 
-% a:       matriz A (Sin coeficientes)
-% b:       Vector columna de términos independientes
+% matrizA:                  matriz A (Sin coeficientes)
+% ter_independientes:       Vector columna de términos independientes
 
-function answer = gauss_seidel(a, b)
-  m = size(a, 2); #Número de columnas matriz a
-  x = zeros (1, m); #Vector para calcular la iteración de variables
-  e = ones(1, m); #Vector para calcular errores de variables
-  answer = [x, e];
-  flag = true;
-  i = 1;
-  while(flag &&  (i < 1000)) #ciclo para llegar al error
-    for j = 1:m #hallar el valor de x y e en la posición (j)
-      x_j = b(j, 1);
-      for k = 1:m
-        if (j != k)
-          x_j = x_j - (a(j, k) * x(k));
-        endif
-      endfor
-      x(j) = x_j / a(j, j);
-      e(j) = 100 * (x(j) - answer(i, j)) / x(j);
-    endfor
+function answer = gauss_seidel(matrizA, ter_independientes)
+  
+  fprintf ("***METODO DE GAUSS SEIDEL***\n");
+  
+  disp("Matriz A")
+  disp(matrizA)
+  disp("\n")
+  
+  disp("T�rminos independientes")
+  disp(ter_independientes)
+  disp("\n")
 
-    answer = [answer; x, e];
-
-    #Valida si todos los errores están por debajo de 1 * 10^(-3)
-    ver = 0;
-    for t = 1:m
-      if e(t) > (1 * 10^(-3))
-        ver = ver + 1;
-      endif
-    endfor
-    if (ver == 0)
-      flag = false;
-    endif
-
-    i++;
-  endwhile
-
-  #Código para crear los encabezados (titles):
-  titles = "";
-  for a = 1:m
-    titles = strcat(titles, "[X", int2str(a), "]");
-  endfor
-  for a = 1:m
-    titles = strcat(titles, "[E", int2str(a), "]");
-  endfor
-  titles
+  A = matrizA;
+  b = ter_independientes;
+  x=[0 0 0]';
+  n=size(x,1);
+  normVal=Inf; 
+  %% 
+  % * _*Tolerence for method*_
+  tol=1e-5; itr=0;
+  %% Algorithm: Gauss Seidel Method
+  %%
+  while normVal>tol
+      x_old=x;
+      
+      for i=1:n
+          
+          sigma=0;
+          
+          for j=1:i-1
+                  sigma=sigma+A(i,j)*x(j);
+          end
+          
+          for j=i+1:n
+                  sigma=sigma+A(i,j)*x_old(j);
+          end
+          
+          x(i)=(1/A(i,i))*(b(i)-sigma);
+      end
+      
+      itr=itr+1;
+      normVal=norm(x_old-x);
+  end
+  %%
+  fprintf('La solicion del sistemas es : \n X1 = %f\n X2 = %f\n X3 = %f\n%f',x);
+  
 endfunction

@@ -389,5 +389,75 @@ function menus(str_menu)
       return %borrar
     end_try_catch
  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  case "gauss seidel"
+    clc;
+    error = 1; % si es 0 no hay errores
+    msg_error = "";
+
+    matiz_a = "[3 -0.1 -0.2 ; 0.1 7 -0.3 ; 0.3 -0.2 -10]";
+    vector_ter_independientes = "[7.85 -19.30 71.40]";
+
+    % pedir matiz_a
+    while(error != 0)
+      try
+        respuesta = inputdlg({"Ingrese la matriz A ejem: [1 1 1; 2 2 2 ; 3 3 3]"}, "Datos necesarios", 1,{matiz_a});
+
+        matiz_a = str2num(respuesta{1});
+
+        if(isempty(matiz_a))
+          msg_error = "Matriz no válida";
+          disp("Matriz no válida");
+          error = 1;
+          questdlg (strcat("ERROR\n",msg_error), "ERROR");
+          continue
+        endif
+
+        error = 0;
+        msg_error = "";
+      catch err
+        disp("Error tomando matriz")
+        disp(err)
+        error = 1;
+        msg_error = "Error en el proceso";
+      end_try_catch
+    endwhile
+
+    error = 1;
+    msg_error = "";
+
+    % pedir funcion
+    while(error != 0)
+      try
+        respuesta = inputdlg({"Ingrese la matriz términos independientes ejem: [4 4 4]"}, "Datos necesarios", 1,{vector_ter_independientes});
+
+        vector_ter_independientes = str2num(respuesta{1});
+
+        if(isempty(vector_ter_independientes))
+          msg_error = "Matriz no válida";
+          disp("Matriz no válidaa");
+          error = 1;
+          questdlg (strcat("ERROR\n",msg_error), "ERROR");
+          continue
+        endif
+
+        error = 0;
+        msg_error = "";
+      catch err
+        disp("Error tomando matriz")
+        disp(err)
+        error = 1;
+        msg_error = "Error en el proceso";
+      end_try_catch
+    endwhile
+
+    try
+      gauss_seidel(matiz_a, vector_ter_independientes);
+    catch err
+      disp(err)
+      disp("Error al ejecutar el metodo de gauss seidel")
+      return %borrar
+    end_try_catch
+ 
   endswitch
 endfunction

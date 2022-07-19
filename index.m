@@ -1,7 +1,13 @@
   opc_sel = 0;
-  itemlist = {"- Bisección", "- Falsa posición", "- Newton Raphson", "- Secante","- Cramer", "Salir"};
+  itemlist = {"- Bisección", 
+  "- Falsa posición", 
+  "- Newton Raphson", 
+  "- Secante", 
+  "- Cramer", 
+  "- Gauss Seidel", 
+  "Salir"};
 
-while (opc_sel != 6)
+while (opc_sel != 7)
 
   opc_sel = listdlg ("ListString", itemlist,
   "Name", "Seleccione un método",
@@ -32,8 +38,10 @@ while (opc_sel != 6)
       menus("cramer")
       
     %gauss seidel        
-    case 7
-
+    case 6
+      menus("gauss seidel")
+      
+    
     case 8
 
     case 9

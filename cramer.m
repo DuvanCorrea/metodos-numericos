@@ -18,8 +18,6 @@ function res = cramer(matrizA, ter_independientes)
   determinante = det(matrizA)
   disp("\n")
   
-  
-  
   m = size(matrizA, 2); #Número de columnas matriz a
   for i = 1:m #bucle para generar las matrices d
     d = matrizA;
