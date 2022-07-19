@@ -1,5 +1,5 @@
   opc_sel = 0;
-  itemlist = {"- Bisección", "- Falsa posición", "Metodo 3", "- Secante", "Salir"};
+  itemlist = {"- Bisección", "- Falsa posición", "- Newton Raphson", "- Secante", "Salir"};
 
   while (opc_sel != 5)
 
@@ -149,7 +149,112 @@
 
           % newton raphson
           case 3
-             disp('other value')
+              clc;
+              error = 1; % si es 0 no hay errores
+              msg_error = "";
+
+              x0 = 0;
+              funcion = "7*e^(x)*sin(x)-1";
+              funcion_der = "7*e^(x)*(sin(x)+cos(x))";
+
+              % pedir x0
+              while(error != 0)
+                try
+                  respuesta = inputdlg({"Ingrese el valor inicial x0"}, "Datos necesarios", 1,{x0});
+
+                  %Si da cancelar
+                  %clc
+                  %disp(size(respuesta))
+                  %if(size(respuesta) <= 0)
+                  %  return
+                  %endif
+
+                  x0 = (str2double(respuesta(1)));
+
+                  if(isnan(x0))
+                    msg_error = "Valor de x0 no válido";
+                    disp("Valor de x0 no válido");
+                    error = 1;
+                    questdlg (strcat("ERROR\n",msg_error), "ERROR");
+                    continue
+                  endif
+
+                  error = 0;
+                  msg_error = "";
+                catch err
+                  disp("Error tomando datos x0")
+                  disp(err)
+                  error = 1;
+                  msg_error = "Error en el proceso";
+                end_try_catch
+              endwhile
+
+              error = 1;
+              msg_error = "";
+
+              % pedir funcion
+              while(error != 0)
+                try
+                  respuesta = inputdlg({"Ingrese la función ejem: 7*e^(x)*sin(x)-1"}, "Funcion", 1,{funcion});
+
+                  funcion = respuesta{1};
+
+                  if(isempty(funcion))
+                    msg_error = "Función no válida";
+                    disp("Función no válida");
+                    error = 1;
+                    questdlg (strcat("ERROR\n",msg_error), "ERROR");
+                    continue
+                  endif
+
+                  error = 0;
+                  msg_error = "";
+                catch err
+                  disp("Error tomando funcion")
+                  disp(err)
+                  error = 1;
+                  msg_error = "Error en el proceso";
+                end_try_catch
+              endwhile
+
+              error = 1;
+              msg_error = "";
+
+              % pedir derivada
+              while(error != 0)
+                try
+                  respuesta = inputdlg({"Ingrese la derivada de la funcioón anterior ejem (7*e^(x)*(sin(x)+cos(x)))"}, "Derivada", 1,{funcion_der});
+
+                  funcion_der = respuesta{1};
+
+                  if(isempty(funcion_der))
+                    msg_error = "Derivada no válido";
+                    disp("Derivada no válido");
+                    error = 1;
+                    questdlg (strcat("ERROR\n",msg_error), "ERROR");
+                    continue
+                  endif
+
+                  error = 0;
+                  msg_error = "";
+                catch err
+                  disp("Error tomando derivada")
+                  disp(err)
+                  error = 1;
+                  msg_error = "Error en el proceso";
+                end_try_catch
+              endwhile
+
+              try
+                disp(x0)
+                disp(funcion)
+                disp(funcion_der)
+                newton_raphson(x0, funcion, funcion_der)
+              catch err
+                disp("Error al ejecutar el metodo newton_raphson")
+                disp(err)
+                return %borrar
+              end_try_catch
 
           % Secante
           case 4
