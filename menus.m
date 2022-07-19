@@ -565,5 +565,75 @@ function menus(str_menu)
       return %borrar
     end_try_catch
  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  case "interpolacion de newton por diferencias divididas"
+ 
+    clc;
+    error = 1; % si es 0 no hay errores
+    msg_error = "";
+
+    matiz_a = "[1 2 4 8 ; 5 8 4 2]";
+    a = 6;
+
+    % pedir matiz_a
+    while(error != 0)
+      try
+        respuesta = inputdlg({"Ingrese X y Y, X en la pirmera fila y Y en la segunda asi [1 2 3; 1 4 9]"}, "Datos necesarios", 1,{matiz_a});
+
+        matiz_a = str2num(respuesta{1});
+
+        if(isempty(matiz_a))
+          msg_error = "Matriz no válida";
+          disp("Matriz no válida");
+          error = 1;
+          questdlg (strcat("ERROR\n",msg_error), "ERROR");
+          continue
+        endif
+
+        error = 0;
+        msg_error = "";
+      catch err
+        disp("Error tomando matriz")
+        disp(err)
+        error = 1;
+        msg_error = "Error en el proceso";
+      end_try_catch
+    endwhile
+
+    error = 1;
+    msg_error = "";
+    
+    % Valor a interpolar
+    while(error != 0)
+      try
+        respuesta = inputdlg({"Valor a interpolar"}, "Datos necesarios", 1,{a});
+        a = (str2double(respuesta(1)))
+
+        if(isnan(a))
+          msg_error = "Valor no válido";
+          disp("Valor no válido");
+          error = 1;
+          questdlg (strcat("ERROR\n",msg_error), "ERROR");
+          continue
+        endif
+
+        error = 0;
+        msg_error = "";
+      catch err
+        disp("Error tomando datos")
+        disp(err)
+        error = 1;
+        msg_error = "Error en el proceso";
+      end_try_catch
+    endwhile
+    
+    try
+      interpol_newton_dife_divi(matiz_a, a);
+    catch err
+      disp(err)
+      disp("Error al ejecutar el metodo de interpolacion de newton por diferencias divididas")
+      return %borrar
+    end_try_catch
+ 
   endswitch
 endfunction

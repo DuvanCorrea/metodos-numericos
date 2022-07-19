@@ -1,5 +1,5 @@
   opc_sel = 0;
-  itemlist = {"- Bisección", "- Falsa posición", "- Newton Raphson", "- Secante","- Cramer", "- Otro caso", "- Gauss Seidel", "- Minimos Cuadrados" ,"Salir"};
+  itemlist = {"- Bisección", "- Falsa posición", "- Newton Raphson", "- Secante","- Cramer", "- Interpolacion de Newton por diferencias divididas", "- Gauss Seidel", "- Minimos Cuadrados" ,"Salir"};
 
 while (opc_sel != 9)
 
@@ -31,8 +31,9 @@ while (opc_sel != 9)
     case 5  
       menus("cramer")
     
-    % otro caso
+    % interpolacion de newton por diferencias divididas
     case 6 
+      menus ("interpolacion de newton por diferencias divididas")
 
     %gauss seidel        
     case 7
