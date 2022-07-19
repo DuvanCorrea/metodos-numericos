@@ -1,16 +1,14 @@
-
-
 function ret = newton_raphson(x0, str_fun, str_fun_der)
-fprintf ("***METODO DE NEWTON RAPSHON***\n");
+  fprintf ("***METODO DE NEWTON RAPSHON***\n");
 
   opc_sel = 0;
-  itemlist = {"- Bisección", "- Falsa posición", "Metodo 3", "Salir"};
+  %itemlist = {"Graficar", "Mostrar Tabla", "Valor de la raíz con error menor a Es", "Todo"};
 
-  opc_sel = listdlg ("ListString", itemlist,
-  "Name", "Seleccione",
-  "SelectionMode", "Single");
+  %opc_sel = listdlg ("ListString", itemlist,
+  %"Name", "Seleccione",
+  %"SelectionMode", "Single");
 
-  disp(strcat("Quiero: ", itemlist{opc_sel}))
+  %disp(strcat("Quiero: ", itemlist{opc_sel}))
 
   #f='7*e^(x)*sin(x)-1';
   f = str_fun;
