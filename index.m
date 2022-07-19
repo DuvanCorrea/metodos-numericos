@@ -1,5 +1,7 @@
+  clc
+  clear
   opc_sel = 0;
-  itemlist = {"- Bisección", "- Falsa posición", "- Newton Raphson", "- Secante","- Cramer", "- Otro caso", "- Gauss Seidel", "- Minimos Cuadrados" ,"Salir"};
+  itemlist = {"- Bisección", "- Falsa posición", "- Newton Raphson", "- Secante","- Cramer", "- Runge Kutta Orden Cuatro", "- Gauss Seidel", "- Minimos Cuadrados" ,"Salir"};
 
 while (opc_sel != 9)
 
@@ -28,13 +30,14 @@ while (opc_sel != 9)
       menus("secante")
 
     % cramer
-    case 5  
+    case 5
       menus("cramer")
-    
-    % otro caso
-    case 6 
 
-    % gauss seidel        
+    % RK4
+    case 6
+      menus("RK4")
+
+    % gauss seidel
     case 7
 
     % minimos cuadrados
