@@ -512,8 +512,8 @@ function menus(str_menu)
         matiz_a = str2num(respuesta{1});
 
         if(isempty(matiz_a))
-          msg_error = "Matriz no v�lida";
-          disp("Matriz no v�lida");
+          msg_error = "Matriz no v�lida";
+          disp("Matriz no v�lida");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -535,13 +535,13 @@ function menus(str_menu)
     % pedir funcion
     while(error != 0)
       try
-        respuesta = inputdlg({"Ingrese la matriz t�rminos independientes ejem: [4 4 4]"}, "Datos necesarios", 1,{vector_ter_independientes});
+        respuesta = inputdlg({"Ingrese la matriz t�rminos independientes ejem: [4 4 4]"}, "Datos necesarios", 1,{vector_ter_independientes});
 
         vector_ter_independientes = str2num(respuesta{1});
 
         if(isempty(vector_ter_independientes))
-          msg_error = "Matriz no v�lida";
-          disp("Matriz no v�lidaa");
+          msg_error = "Matriz no v�lida";
+          disp("Matriz no v�lidaa");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -583,8 +583,8 @@ function menus(str_menu)
         matiz_a = str2num(respuesta{1});
 
         if(isempty(matiz_a))
-          msg_error = "Matriz no v�lida";
-          disp("Matriz no v�lida");
+          msg_error = "Matriz no v�lida";
+          disp("Matriz no v�lida");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -610,8 +610,8 @@ function menus(str_menu)
         a = (str2double(respuesta(1)))
 
         if(isnan(a))
-          msg_error = "Valor no v�lido";
-          disp("Valor no v�lido");
+          msg_error = "Valor no v�lido";
+          disp("Valor no v�lido");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -634,6 +634,98 @@ function menus(str_menu)
       disp("Error al ejecutar el metodo de interpolacion de newton por diferencias divididas")
       return %borrar
     end_try_catch
- 
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  case "RK4"
+    clc;
+              error = 1; % si es 0 no hay errores
+              msg_error = "";
+              funcion = "(1 + 4*x)*sqrt(t)";
+              % pedir funcion
+              while(error != 0)
+                  try
+                    respuesta  = inputdlg({"Ingrese la función ejem: 7*e^(x)*sin(x)-1"}, "Funcion", 1,{funcion});
+                    funcion = respuesta{1};
+
+                    if(isempty(funcion))
+                       msg_error = "Función no válida";
+                       disp("Función no válida");
+                       error = 1;
+                       questdlg (strcat("ERROR\n",msg_error), "ERROR");
+                       continue
+                    endif
+
+                    error = 0;
+                    msg_error = "";
+                  catch err
+                    disp("Error tomando funcion")
+                    disp(err)
+                    error = 1;
+                    msg_error = "Error en el proceso";
+                  end_try_catch
+              endwhile
+
+
+              a = 0;
+              b = 1;
+              error = 1;
+
+              % pedir a y b
+              while(error != 0)
+                try
+                  respuesta = inputdlg({"Valor inferior", "Valor superior" }, "Rango de trabajo", 1,{a,b});
+                  a = (str2double(respuesta(1)))
+                  b = (str2double(respuesta(2)))
+
+                  if(isnan(a) || isnan(b))
+                    msg_error = "Valor de a ó b no válido";
+                    disp("Valor de a ó b no válido");
+                    error = 1;
+                    questdlg (strcat("ERROR\n",msg_error), "ERROR");
+                    continue
+                  endif
+
+                  error = 0;
+                  msg_error = "";
+                catch err
+                  disp("Error tomando datos a y b")
+                  disp(err)
+                  error = 1;
+                  msg_error = "Error en el proceso";
+                end_try_catch
+              endwhile
+
+              error = 1;
+              % Pedir Salto
+              while(error != 0)
+                try
+                  n = 0.1;
+                  respuesta = inputdlg({strcat("Ingrese al cantidad de saltos Ejm:"," 0,1")}, "Grado", 1,{n});
+                  n = (str2double(respuesta))
+
+                  if(isnan(n))
+                    msg_error = "Valor de n no válido";
+                    disp("Valor de n no válido");
+                    error = 1;
+                    questdlg (strcat("ERROR\n",msg_error), "ERROR");
+                    continue
+                  end
+
+                  error = 0;
+                  msg_error = "";
+                catch
+                  disp("Error pidiendo H")
+                  error = 1;
+                  msg_error = "Error en el proceso";
+                end_try_catch
+              end
+
+              try
+                  rungeKuttaOrdenCuatro(funcion,a,b,n)
+              catch
+                disp("Error al ejecutar el método rk4")
+                return %borrar
+              end_try_catch
+              
   endswitch
 endfunction
