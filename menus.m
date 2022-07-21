@@ -796,5 +796,48 @@ function menus(str_menu)
       return %borrar
     end_try_catch
 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  case "lagrange"
+
+    clc;
+    error = 1; % si es 0 no hay errores
+    msg_error = "";
+
+    matiz_a = "[1 2 4 8 ; 5 8 4 2]";
+
+    % pedir matiz_a
+    while(error != 0)
+      try
+        respuesta = inputdlg({"Ingrese X y Y, X en la pirmera fila y Y en la segunda asi [1 2 3; 1 4 9]"}, "Datos necesarios", 1,{matiz_a});
+
+        matiz_a = str2num(respuesta{1});
+
+        if(isempty(matiz_a))
+          msg_error = "Matriz no v�lida";
+          disp("Matriz no v�lida");
+          error = 1;
+          questdlg (strcat("ERROR\n",msg_error), "ERROR");
+          continue
+        endif
+
+        error = 0;
+        msg_error = "";
+      catch err
+        disp("Error tomando matriz")
+        disp(err)
+        error = 1;
+        msg_error = "Error en el proceso";
+      end_try_catch
+    endwhile
+
+
+    try
+      lagrange(matiz_a);
+    catch err
+      disp(err)
+      disp("Error al ejecutar el metodo de lagrange")
+      return %borrar
+    end_try_catch
+    
   endswitch
 endfunction

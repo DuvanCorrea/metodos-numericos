@@ -1,9 +1,9 @@
   clc
   clear
   opc_sel = 0;
-  itemlist = {"- Bisección", "- Falsa posición", "- Newton Raphson", "- Secante","- Cramer", "- Interpolacion de Newton por diferencias divididas", "- Gauss Seidel", "- Minimos Cuadrados"  "- Runge Kutta Orden Cuatro", "- Punto fijo", "Salir"};
+  itemlist = {"- Bisección", "- Falsa posición", "- Newton Raphson", "- Secante","- Cramer", "- Interpolacion de Newton por diferencias divididas", "- Gauss Seidel", "- Minimos Cuadrados"  "- Runge Kutta Orden Cuatro", "- Punto fijo", "- Lagrange", "Salir"};
 
-while (opc_sel != 11)
+while (opc_sel != 12)
 
   opc_sel = listdlg ("ListString", itemlist,
   "Name", "Seleccione un método",
@@ -52,6 +52,10 @@ while (opc_sel != 11)
     % punto fijo
     case 10
       menus("punto fijo")
+      
+        % punto fijo
+    case 11
+      menus("lagrange")
 
     otherwise
     disp("Hasta pronto...")
