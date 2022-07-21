@@ -253,6 +253,10 @@ function menus(str_menu)
       try
         respuesta = inputdlg({"Ingrese el valor inicial x0"}, "Datos necesarios", 1,{x0});
 
+        if length(respuesta) <=0
+          return
+        endif
+        
         x0 = (str2double(respuesta(1)));
 
         if(isnan(x0))
@@ -270,6 +274,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -281,6 +286,10 @@ function menus(str_menu)
       try
         respuesta = inputdlg({"Ingrese la función ejem: 7*e^(x)*sin(x)-1"}, "Funcion", 1,{funcion});
 
+        if length(respuesta) <=0
+          return
+        endif
+        
         funcion = respuesta{1};
         
         funcion = strrep(funcion,"^",".^");
@@ -301,6 +310,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -312,6 +322,10 @@ function menus(str_menu)
     try
       respuesta = inputdlg({"Ingrese la derivada de la funcioón anterior ejem (7*e^(x)*(sin(x)+cos(x)))"}, "Derivada", 1,{funcion_der});
 
+      if length(respuesta) <=0
+          return
+      endif
+      
       funcion_der = respuesta{1};
 
       if(isempty(funcion_der))
@@ -329,6 +343,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -340,7 +355,7 @@ function menus(str_menu)
     catch err
       disp("Error al ejecutar el metodo newton_raphson")
       disp(err)
-      return %borrar
+      return
     end_try_catch
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -427,6 +442,10 @@ function menus(str_menu)
       try
         respuesta = inputdlg({"Ingrese la matriz A ejem: [1 1 1; 2 2 2 ; 3 3 3]"}, "Datos necesarios", 1,{matiz_a});
 
+        if length(respuesta) <=0
+          return
+        endif
+        
         matiz_a = str2num(respuesta{1});
 
         if(isempty(matiz_a))
@@ -444,6 +463,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -455,6 +475,10 @@ function menus(str_menu)
       try
         respuesta = inputdlg({"Ingrese la matriz tï¿½rminos independientes ejem: [4 4 4]"}, "Datos necesarios", 1,{vector_ter_independientes});
 
+        if length(respuesta) <=0
+          return
+        endif
+        
         vector_ter_independientes = str2num(respuesta{1});
 
         if(isempty(vector_ter_independientes))
@@ -472,14 +496,16 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
     try
       cramer(matiz_a, vector_ter_independientes);
-    catch
+    catch err
+      disp(err)
       disp("Error al ejecutar el metodo de cramer")
-      return %borrar
+      return 
     end_try_catch
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

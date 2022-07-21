@@ -19,11 +19,12 @@ function res = cramer(matrizA, ter_independientes)
   disp("\n")
   
   m = size(matrizA, 2); #Número de columnas matriz a
-  for i = 1:m #bucle para generar las matrices d
+  for i = 1:m 
     d = matrizA;
     d(:, i) = ter_independientes
-    D = det(d)
-    res = ['X', num2str(i), ' = ', num2str(D / determinante)]
+    Det = det(d)
+    disp("\n")
+    disp(['-----> X', num2str(i), ' = ', num2str(Det / determinante)])
     disp("\n")
   endfor
 endfunction
