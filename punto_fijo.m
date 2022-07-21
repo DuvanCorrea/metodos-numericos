@@ -1,7 +1,7 @@
-function res = punto_fijo(x0, str_fun)
+function res = punto_fijo(x0, str_fun, iteraciones)
   fprintf("***METODO DE PUNTO FIJO***\n");
 
-  cantidadIteraciones = 10;
+  cantidadIteraciones = iteraciones;
   str_fun
   x0
   f = inline(str_fun);
@@ -30,5 +30,15 @@ function res = punto_fijo(x0, str_fun)
    endwhile
    fprintf("------------------------------------------------|\n" )
    fprintf("LA RAIZ APROXIMADA: %.6f\n", x0);
+   
+    % Graficar
+    
+    vector = (abs(x0)*-3):x0:(abs(x0)*3);
+    fun = str_fun;
+    fun = strrep(fun,"^",".^");
+    fun = strrep(fun,"*",".*");
+    fun = inline(fun);
+    
+    plot(vector, fun(vector));
 
 endfunction

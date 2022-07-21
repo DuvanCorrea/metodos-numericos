@@ -6,7 +6,7 @@
 
 function answer = interpol_newton_dife_divi(a, hallar)
   
-  fprintf ("***METODO DE GAUSS SEIDEL***\n");
+  fprintf ("***METODO DE INTERPOLACION DE NETON POR DIFERENCIAS DIVIDIDAS***\n");
   
   disp("X / Y")
   disp(a)
@@ -60,6 +60,7 @@ function answer = interpol_newton_dife_divi(a, hallar)
         end
     end
 
+    disp("\n")
     fprintf('Polinomio interpolacion Newton: %s n')
     disp(acum)
     
@@ -84,6 +85,13 @@ function answer = interpol_newton_dife_divi(a, hallar)
     x=xg;yg=eval(acum);
     plot(xg,yg,xa,ya,'.r',xinterp,yinterp,'or');
     grid
+    
+    % Graficar    
+    acum = inline(acum);
+    
+    plot(xa, acum(xa));
+    
+    
     
   catch err
     disp(err)

@@ -520,6 +520,11 @@ function menus(str_menu)
                   v = 0;
                   respuesta = inputdlg({"Cantidad de datos"},
                   "TamaÃ±o del vector", 1,{v});
+                  
+                  if length(respuesta) <=0
+                    return
+                  endif
+                  
                   v = (str2double(respuesta(1)));
 
                   if(isnan(v) || v < 1)
@@ -538,6 +543,7 @@ function menus(str_menu)
                   disp("Error tomando datos del vector")
                   error = 1;
                   msg_error = "Error en el proceso";
+                  return
                 end_try_catch
 
               endwhile
@@ -552,6 +558,11 @@ function menus(str_menu)
                      b = 0;
                      respuesta = inputdlg({"Dato de x", "Dato de Y"},
                      "TamaÃ±o del vector", 1,{a, b});
+                     
+                     if length(respuesta) <=0
+                       return
+                     endif
+                     
                      a = (str2double(respuesta(1)));
                      b = (str2double(respuesta(2)));
 
@@ -574,6 +585,7 @@ function menus(str_menu)
                   disp("Error tomando datos a y b")
                   error = 1;
                   msg_error = "Error en el proceso";
+                  return
                 end_try_catch
 
               endwhile
@@ -587,6 +599,11 @@ function menus(str_menu)
                 try
                   n = 3;
                   respuesta = inputdlg({strcat("Grado del Polinomio ejm:"," 2")}, "Grado", 1,{n});
+                  
+                  if length(respuesta) <=0
+                    return
+                  endif
+                  
                   n = (str2double(respuesta))
 
                   if(isnan(n))
@@ -603,6 +620,7 @@ function menus(str_menu)
                   disp("Error pidiendo grado del polinomio")
                   error = 1;
                   msg_error = "Error en el proceso";
+                  return
                 end_try_catch
               end
 
@@ -611,7 +629,7 @@ function menus(str_menu)
                   minimos_cuadrados(x,y,n)
               catch
                 disp("Error al ejecutar el mÃ©todo de minimos cuadrados")
-                return %borrar
+                return 
               end_try_catch
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -628,6 +646,10 @@ function menus(str_menu)
       try
         respuesta = inputdlg({"Ingrese la matriz A ejem: [1 1 1; 2 2 2 ; 3 3 3]"}, "Datos necesarios", 1,{matiz_a});
 
+        if length(respuesta) <=0
+          return
+        endif
+        
         matiz_a = str2num(respuesta{1});
 
         if(isempty(matiz_a))
@@ -645,6 +667,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -656,6 +679,10 @@ function menus(str_menu)
       try
         respuesta = inputdlg({"Ingrese la matriz tï¿½rminos independientes ejem: [4 4 4]"}, "Datos necesarios", 1,{vector_ter_independientes});
 
+        if length(respuesta) <=0
+          return
+        endif
+        
         vector_ter_independientes = str2num(respuesta{1});
 
         if(isempty(vector_ter_independientes))
@@ -673,6 +700,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -699,6 +727,10 @@ function menus(str_menu)
       try
         respuesta = inputdlg({"Ingrese X y Y, X en la pirmera fila y Y en la segunda asi [1 2 3; 1 4 9]"}, "Datos necesarios", 1,{matiz_a});
 
+        if length(respuesta) <=0
+          return
+        endif
+        
         matiz_a = str2num(respuesta{1});
 
         if(isempty(matiz_a))
@@ -716,6 +748,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -726,6 +759,11 @@ function menus(str_menu)
     while(error != 0)
       try
         respuesta = inputdlg({"Valor a interpolar"}, "Datos necesarios", 1,{a});
+        
+        if length(respuesta) <=0
+          return
+        endif
+        
         a = (str2double(respuesta(1)))
 
         if(isnan(a))
@@ -743,6 +781,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -751,7 +790,7 @@ function menus(str_menu)
     catch err
       disp(err)
       disp("Error al ejecutar el metodo de interpolacion de newton por diferencias divididas")
-      return %borrar
+      return 
     end_try_catch
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -764,6 +803,11 @@ function menus(str_menu)
               while(error != 0)
                   try
                     respuesta  = inputdlg({"Ingrese la función ejem: 7*e^(x)*sin(x)-1"}, "Funcion", 1,{funcion});
+                    
+                    if length(respuesta) <=0
+                      return
+                    endif
+                    
                     funcion = respuesta{1};
 
                     if(isempty(funcion))
@@ -781,6 +825,7 @@ function menus(str_menu)
                     disp(err)
                     error = 1;
                     msg_error = "Error en el proceso";
+                    return
                   end_try_catch
               endwhile
 
@@ -793,6 +838,11 @@ function menus(str_menu)
               while(error != 0)
                 try
                   respuesta = inputdlg({"Valor inferior", "Valor superior" }, "Rango de trabajo", 1,{a,b});
+                  
+                  if length(respuesta) <=0
+                    return
+                  endif
+                  
                   a = (str2double(respuesta(1)))
                   b = (str2double(respuesta(2)))
 
@@ -811,6 +861,7 @@ function menus(str_menu)
                   disp(err)
                   error = 1;
                   msg_error = "Error en el proceso";
+                  return
                 end_try_catch
               endwhile
 
@@ -820,6 +871,11 @@ function menus(str_menu)
                 try
                   n = 0.1;
                   respuesta = inputdlg({strcat("Ingrese al cantidad de saltos Ejm:"," 0,1")}, "Grado", 1,{n});
+                  
+                  if length(respuesta) <=0
+                    return
+                  endif
+                  
                   n = (str2double(respuesta))
 
                   if(isnan(n))
@@ -836,6 +892,7 @@ function menus(str_menu)
                   disp("Error pidiendo H")
                   error = 1;
                   msg_error = "Error en el proceso";
+                  return
                 end_try_catch
               end
 
@@ -854,11 +911,17 @@ function menus(str_menu)
 
     a = 0;
     funcion = "e^(-x)";
+    iteraciones = 20
 
     % pedir x0
     while(error != 0)
       try
         respuesta = inputdlg({"Valor inicial x0"}, "Datos necesarios", 1,{a});
+        
+        if length(respuesta) <=0
+          return
+        endif
+        
         a = (str2double(respuesta(1)))
 
         if(isnan(a))
@@ -877,6 +940,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -887,6 +951,11 @@ function menus(str_menu)
     while(error != 0)
       try
         funcion = inputdlg({strcat("Función ejm:"," e^(-x)")}, "Datos necesarios", 1,{funcion});
+        
+        if length(respuesta) <=0
+          return
+        endif
+        
         funcion = funcion{1}
 
         if(isempty(funcion))
@@ -903,12 +972,45 @@ function menus(str_menu)
         disp("Error pidiendo la funcion")
         error = 1;
         msg_error = "Error en el proceso";
+        return
+      end_try_catch
+    endwhile
+    
+    error = 1;
+    msg_error = "";
+    
+    % cantidad de iteraciones
+    while(error != 0)
+      try
+        respuesta = inputdlg({"Cantidad de iteraciones"}, "Datos necesarios", 1,{iteraciones});
+        
+        if length(respuesta) <=0
+          return
+        endif
+        
+        iteraciones = (str2double(respuesta(1)))
+
+        if(isnan(iteraciones))
+          msg_error = "Valor no valido";
+          disp("Valor no valido");
+          error = 1;
+          questdlg (strcat("ERROR\n",msg_error), "ERROR");
+          continue
+        endif
+
+        error = 0;
+        msg_error = "";
+      catch err
+        disp("Error tomando datos")
+        disp(err)
+        error = 1;
+        msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
-
     try
-      punto_fijo(a, funcion)
+      punto_fijo(a, funcion, iteraciones)
     catch err
       disp(err)
       disp("Error al ejecutar el metodo de punto fijo")
@@ -929,6 +1031,10 @@ function menus(str_menu)
       try
         respuesta = inputdlg({"Ingrese X y Y, X en la pirmera fila y Y en la segunda asi [1 2 3; 1 4 9]"}, "Datos necesarios", 1,{matiz_a});
 
+        if length(respuesta) <=0
+          return
+        endif
+        
         matiz_a = str2num(respuesta{1});
 
         if(isempty(matiz_a))
@@ -946,6 +1052,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -955,7 +1062,7 @@ function menus(str_menu)
     catch err
       disp(err)
       disp("Error al ejecutar el metodo de lagrange")
-      return %borrar
+      return 
     end_try_catch
     
   endswitch
