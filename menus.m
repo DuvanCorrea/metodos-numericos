@@ -11,17 +11,23 @@ function menus(str_menu)
     a = 1;
     b = 1.6;
     funcion = "4*x.^2-5.*x";
+    iteraciones = 20
 
     % pedir a y b
     while(error != 0)
       try
         respuesta = inputdlg({"Valor inferior (a o x0)", "Valor inferior (b o x1)"}, "Rango de trabajo", 1,{a,b});
+        
+        if length(respuesta) <=0
+          return
+        endif
+        
         a = (str2double(respuesta(1)))
         b = (str2double(respuesta(2)))
 
         if(isnan(a) || isnan(b))
-          msg_error = "Valor de a ó b no válido";
-          disp("Valor de a ó b no válido");
+          msg_error = "Valor de a�b no v�lido";
+          disp("Valor de a�b no v�lido");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -34,6 +40,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -43,12 +50,17 @@ function menus(str_menu)
     % Pedir function
     while(error != 0)
       try
-        funcion = inputdlg({strcat("Polinomio en función de X ejm:"," 4*x^2-5*x")}, "Función", 1,{funcion});
-        funcion = funcion{1}
+        funcion = inputdlg({strcat("Polinomio en funci�n de X ejm:"," 4*x^2-5*x")}, "Funci�n", 1,{funcion});
+        
+        if length(funcion) <=0
+          return
+        endif
+        
+        funcion = funcion{1}        
 
         if(isempty(funcion))
-          msg_error = "Función no válida";
-          disp("Función no válida");
+          msg_error = "Funci�n no v�lida";
+          disp("Funci�n no v�lida");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -61,12 +73,45 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
+    error = 1;
+    msg_error = "";
+    
+    % cantidad de iteraciones
+    while(error != 0)
+      try
+        respuesta = inputdlg({"Cantidad de iteraciones"}, "Datos necesarios", 1,{iteraciones});
+        
+        if length(respuesta) <=0
+          return
+        endif
+        
+        iteraciones = (str2double(respuesta(1)))
+
+        if(isnan(iteraciones))
+          msg_error = "Valor no valido";
+          disp("Valor no valido");
+          error = 1;
+          questdlg (strcat("ERROR\n",msg_error), "ERROR");
+          continue
+        endif
+
+        error = 0;
+        msg_error = "";
+      catch err
+        disp("Error tomando datos")
+        disp(err)
+        error = 1;
+        msg_error = "Error en el proceso";
+        return
+      end_try_catch
+    endwhile
 
     try
-      biseccion(a,b, funcion)
+      biseccion(a,b, funcion, iteraciones)
     catch
       disp("Error al ejecutar el metodo de biseccion")
       return %borrar
@@ -81,17 +126,23 @@ function menus(str_menu)
     a = 1;
     b = 1.6;
     funcion = "4*x.^2-5.*x";
+    iteraciones = 20
 
     % pedir a y b
     while(error != 0)
       try
         respuesta = inputdlg({"Valor inferior (a o x0)", "Valor inferior (b o x1)"}, "Rango de trabajo", 1,{a,b});
+        
+        if length(respuesta) <=0
+          return
+        endif
+        
         a = (str2double(respuesta(1)))
         b = (str2double(respuesta(2)))
 
         if(isnan(a) || isnan(b))
-          msg_error = "Valor de a ó b no válido";
-          disp("Valor de a ó b no válido");
+          msg_error = "Valor de a�b no v�lido";
+          disp("Valor de a�b no v�lido");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -104,6 +155,7 @@ function menus(str_menu)
         disp(err)
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
@@ -113,12 +165,17 @@ function menus(str_menu)
     % Pedir function
     while(error != 0)
       try
-        funcion = inputdlg({strcat("Polinomio en función de X ejm:"," 4*x^2-5*x")}, "Función", 1,{funcion});
+        funcion = inputdlg({strcat("Polinomio en funci�n de X ejm:"," 4*x^2-5*x")}, "Funci�n", 1,{funcion});
+        
+        if length(funcion) <=0
+          return
+        endif
+        
         funcion = funcion{1}
 
         if(isempty(funcion))
-          msg_error = "Función no válida";
-          disp("Función no válida");
+          msg_error = "Funci�n no v�lida";
+          disp("Funci�n no v�lida");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -130,15 +187,49 @@ function menus(str_menu)
         disp("Error pidiendo la funcion")
         error = 1;
         msg_error = "Error en el proceso";
+        return
       end_try_catch
     endwhile
 
+    error = 1;
+    msg_error = "";
+    
+    % iteraciones
+    while(error != 0)
+      try
+        respuesta = inputdlg({"Numero de iteraciones"}, "Numero de iteraciones", 1,{iteraciones});
+        
+        if length(respuesta) <=0
+          return
+        endif
+        
+        iteraciones = (str2double(respuesta(1)))
+
+        if(isnan(iteraciones))
+          msg_error = "Valor no v�lido";
+          disp("Valor no v�lido");
+          error = 1;
+          questdlg (strcat("ERROR\n",msg_error), "ERROR");
+          continue
+        endif
+
+        error = 0;
+        msg_error = "";
+      catch err
+        disp("Error tomando datos")
+        disp(err)
+        error = 1;
+        msg_error = "Error en el proceso";
+        return
+      end_try_catch
+    endwhile
 
     try
-      falsa_pos(a,b, funcion)
-    catch
-      disp("Error al ejecutar el metodo de Falsa posición")
-      return %borrar
+      falsa_pos(a,b, funcion, iteraciones)
+    catch err
+      disp(err)
+      disp("Error al ejecutar el metodo de Falsa posici�n")
+      return
     end_try_catch
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -166,8 +257,8 @@ function menus(str_menu)
         x0 = (str2double(respuesta(1)));
 
         if(isnan(x0))
-          msg_error = "Valor de x0 no válido";
-          disp("Valor de x0 no válido");
+          msg_error = "Valor de x0 no v�lido";
+          disp("Valor de x0 no v�lido");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -189,13 +280,13 @@ function menus(str_menu)
     % pedir funcion
     while(error != 0)
       try
-        respuesta = inputdlg({"Ingrese la función ejem: 7*e^(x)*sin(x)-1"}, "Funcion", 1,{funcion});
+        respuesta = inputdlg({"Ingrese la funci�n ejem: 7*e^(x)*sin(x)-1"}, "Funcion", 1,{funcion});
 
         funcion = respuesta{1};
 
         if(isempty(funcion))
-          msg_error = "Función no válida";
-          disp("Función no válida");
+          msg_error = "Funci�n no v�lida";
+          disp("Funci�n no v�lida");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -217,13 +308,13 @@ function menus(str_menu)
     % pedir derivada
     while(error != 0)
     try
-      respuesta = inputdlg({"Ingrese la derivada de la funcioón anterior ejem (7*e^(x)*(sin(x)+cos(x)))"}, "Derivada", 1,{funcion_der});
+      respuesta = inputdlg({"Ingrese la derivada de la funcio�n anterior ejem (7*e^(x)*(sin(x)+cos(x)))"}, "Derivada", 1,{funcion_der});
 
       funcion_der = respuesta{1};
 
       if(isempty(funcion_der))
-        msg_error = "Derivada no válido";
-        disp("Derivada no válido");
+        msg_error = "Derivada no v�lido";
+        disp("Derivada no v�lido");
         error = 1;
         questdlg (strcat("ERROR\n",msg_error), "ERROR");
         continue
@@ -268,8 +359,8 @@ function menus(str_menu)
       b = (str2double(respuesta(2)))
 
       if(isnan(a) || isnan(b))
-        msg_error = "Valor de a ó b no válido";
-        disp("Valor de a ó b no válido");
+        msg_error = "Valor de a�b no v�lido";
+        disp("Valor de a�b no v�lido");
         error = 1;
         questdlg (strcat("ERROR\n",msg_error), "ERROR");
         continue
@@ -291,12 +382,12 @@ function menus(str_menu)
     % Pedir function
     while(error != 0)
       try
-      funcion = inputdlg({strcat("Polinomio en función de X ejm:"," 4*x^2-5*x")}, "Función", 1,{funcion});
+      funcion = inputdlg({strcat("Polinomio en funci�n de X ejm:"," 4*x^2-5*x")}, "Funci�n", 1,{funcion});
       funcion = funcion{1}
 
       if(isempty(funcion))
-        msg_error = "Función no válida";
-        disp("Función no válida");
+        msg_error = "Funci�n no v�lida";
+        disp("Funci�n no v�lida");
         error = 1;
         questdlg (strcat("ERROR\n",msg_error), "ERROR");
         continue
@@ -404,8 +495,8 @@ function menus(str_menu)
                   v = (str2double(respuesta(1)));
 
                   if(isnan(v) || v < 1)
-                    msg_error = "Tamaño del vector no válido";
-                    disp("Tamaño del vector no válido");
+                    msg_error = "Tamaño del vector no v�lido";
+                    disp("Tamaño del vector no v�lido");
                     error = 1;
                     questdlg (strcat("ERROR\n",msg_error), "ERROR");
                     continue
@@ -437,8 +528,8 @@ function menus(str_menu)
                      b = (str2double(respuesta(2)));
 
                      if(isnan(a) || isnan(b))
-                       msg_error = "Valor de x ó y no válido";
-                       disp("Valor de x ó y no válido");
+                       msg_error = "Valor de x�y no v�lido";
+                       disp("Valor de x�y no v�lido");
                        error = 1;
                        questdlg (strcat("ERROR\n",msg_error), "ERROR");
                        continue
@@ -471,8 +562,8 @@ function menus(str_menu)
                   n = (str2double(respuesta))
 
                   if(isnan(n))
-                    msg_error = "Valor de n no válido";
-                    disp("Valor de n no válido");
+                    msg_error = "Valor de n no v�lido";
+                    disp("Valor de n no v�lido");
                     error = 1;
                     questdlg (strcat("ERROR\n",msg_error), "ERROR");
                     continue
@@ -644,12 +735,12 @@ function menus(str_menu)
               % pedir funcion
               while(error != 0)
                   try
-                    respuesta  = inputdlg({"Ingrese la función ejem: 7*e^(x)*sin(x)-1"}, "Funcion", 1,{funcion});
+                    respuesta  = inputdlg({"Ingrese la funci�n ejem: 7*e^(x)*sin(x)-1"}, "Funcion", 1,{funcion});
                     funcion = respuesta{1};
 
                     if(isempty(funcion))
-                       msg_error = "Función no válida";
-                       disp("Función no válida");
+                       msg_error = "Funci�n no v�lida";
+                       disp("Funci�n no v�lida");
                        error = 1;
                        questdlg (strcat("ERROR\n",msg_error), "ERROR");
                        continue
@@ -678,8 +769,8 @@ function menus(str_menu)
                   b = (str2double(respuesta(2)))
 
                   if(isnan(a) || isnan(b))
-                    msg_error = "Valor de a ó b no válido";
-                    disp("Valor de a ó b no válido");
+                    msg_error = "Valor de a�b no v�lido";
+                    disp("Valor de a�b no v�lido");
                     error = 1;
                     questdlg (strcat("ERROR\n",msg_error), "ERROR");
                     continue
@@ -704,8 +795,8 @@ function menus(str_menu)
                   n = (str2double(respuesta))
 
                   if(isnan(n))
-                    msg_error = "Valor de n no válido";
-                    disp("Valor de n no válido");
+                    msg_error = "Valor de n no v�lido";
+                    disp("Valor de n no v�lido");
                     error = 1;
                     questdlg (strcat("ERROR\n",msg_error), "ERROR");
                     continue
@@ -743,8 +834,8 @@ function menus(str_menu)
         a = (str2double(respuesta(1)))
 
         if(isnan(a))
-          msg_error = "Valor de x0 no válido";
-          disp("Valor de x0 válido");
+          msg_error = "Valor de x0 no v�lido";
+          disp("Valor de x0 v�lido");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue
@@ -767,12 +858,12 @@ function menus(str_menu)
     % Pedir function
     while(error != 0)
       try
-        funcion = inputdlg({strcat("Función ejm:"," e^(-x)")}, "Datos necesarios", 1,{funcion});
+        funcion = inputdlg({strcat("Funci�n ejm:"," e^(-x)")}, "Datos necesarios", 1,{funcion});
         funcion = funcion{1}
 
         if(isempty(funcion))
-          msg_error = "Función no válida";
-          disp("Función no válida");
+          msg_error = "Funci�n no válida";
+          disp("Funci�n no válida");
           error = 1;
           questdlg (strcat("ERROR\n",msg_error), "ERROR");
           continue

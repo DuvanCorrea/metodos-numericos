@@ -1,8 +1,8 @@
-function ret = falsa_pos(a, b, str_fun)
+function ret = falsa_pos(a, b, str_fun, iteraciones)
 
     fx = inline(str_fun);
     opc_sel = 0;
-    n_iteraciones = 20
+    n_iteraciones = iteraciones;
     Mn = 0;
     itemlist = {"Graficar", "Mostrar Tabla", "Valor de la raíz con error menor a Es", "Todo"};
 
@@ -27,7 +27,7 @@ function ret = falsa_pos(a, b, str_fun)
 
                     if fx(a) * fx(Mn) < 0
                         b = (Mn);
-                    elseif
+                    else
                         a = (Mn);
                     endif
 
@@ -62,7 +62,7 @@ function ret = falsa_pos(a, b, str_fun)
 
                     if fx(a) * fx(Mn) < 0
                         b = (Mn);
-                    elseif
+                    else
                         a = (Mn);
                     endif
 
@@ -95,7 +95,7 @@ function ret = falsa_pos(a, b, str_fun)
 
                     if fx(a) * fx(Mn) < 0
                         b = (Mn);
-                    elseif
+                    else
                         a = (Mn);
                     endif
 
@@ -109,6 +109,7 @@ function ret = falsa_pos(a, b, str_fun)
 
                 endfor
 
+                disp("\n")
                 disp (strcat("Valor de la raíz con error menor a Es: ", " ", num2str(Mn)));
 
             case 4
@@ -130,7 +131,7 @@ function ret = falsa_pos(a, b, str_fun)
 
                     if fx(a) * fx(Mn) < 0
                         b = (Mn);
-                    elseif
+                    else
                         a = (Mn);
                     endif
 
@@ -155,6 +156,7 @@ function ret = falsa_pos(a, b, str_fun)
                 vector = (Mn - a):Mn / 20:(Mn + b);
                 plot (vector, fx(vector));
 
+                disp("\n")
                 disp (strcat("Valor de la raíz con error menor a Es: ", " ", num2str(Mn)));
 
             otherwise
