@@ -734,7 +734,7 @@ function menus(str_menu)
     msg_error = "";
 
     a = 0;
-    funcion = "4*x^2-5*x";
+    funcion = "e^(-x)";
 
     % pedir x0
     while(error != 0)
@@ -767,7 +767,7 @@ function menus(str_menu)
     % Pedir function
     while(error != 0)
       try
-        funcion = inputdlg({strcat("Función ejm:"," 4*x^2-5*x")}, "Datos necesarios", 1,{funcion});
+        funcion = inputdlg({strcat("Función ejm:"," e^(-x)")}, "Datos necesarios", 1,{funcion});
         funcion = funcion{1}
 
         if(isempty(funcion))
