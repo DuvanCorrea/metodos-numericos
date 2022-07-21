@@ -10,7 +10,7 @@ function menus(str_menu)
 
     a = 1;
     b = 1.6;
-    funcion = "4*x.^2-5.*x";
+    funcion = "4*x^2-5*x";
     iteraciones = 20
 
     % pedir a y b
@@ -56,7 +56,10 @@ function menus(str_menu)
           return
         endif
         
-        funcion = funcion{1}        
+        funcion = funcion{1}
+    
+        funcion = strrep(funcion,"^",".^");
+        funcion = strrep(funcion,"*",".*");    
 
         if(isempty(funcion))
           msg_error = "Función no válida";
@@ -125,7 +128,7 @@ function menus(str_menu)
 
     a = 1;
     b = 1.6;
-    funcion = "4*x.^2-5.*x";
+    funcion = "4*x^2-5*x";
     iteraciones = 20
 
     % pedir a y b
@@ -172,6 +175,9 @@ function menus(str_menu)
         endif
         
         funcion = funcion{1}
+        
+        funcion = strrep(funcion,"^",".^");
+        funcion = strrep(funcion,"*",".*");
 
         if(isempty(funcion))
           msg_error = "Función no válida";
@@ -247,13 +253,6 @@ function menus(str_menu)
       try
         respuesta = inputdlg({"Ingrese el valor inicial x0"}, "Datos necesarios", 1,{x0});
 
-        %Si da cancelar
-        %clc
-        %disp(size(respuesta))
-        %if(size(respuesta) <= 0)
-        %  return
-        %endif
-
         x0 = (str2double(respuesta(1)));
 
         if(isnan(x0))
@@ -283,6 +282,9 @@ function menus(str_menu)
         respuesta = inputdlg({"Ingrese la función ejem: 7*e^(x)*sin(x)-1"}, "Funcion", 1,{funcion});
 
         funcion = respuesta{1};
+        
+        funcion = strrep(funcion,"^",".^");
+        funcion = strrep(funcion,"*",".*");
 
         if(isempty(funcion))
           msg_error = "Función no válida";
@@ -331,9 +333,9 @@ function menus(str_menu)
     endwhile
 
     try
-      disp(x0)
-      disp(funcion)
-      disp(funcion_der)
+      x0
+      funcion
+      funcion_der
       newton_raphson(x0, funcion, funcion_der)
     catch err
       disp("Error al ejecutar el metodo newton_raphson")

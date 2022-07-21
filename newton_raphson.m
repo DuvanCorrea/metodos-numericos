@@ -20,43 +20,52 @@ function ret = newton_raphson(x0, str_fun, str_fun_der)
 
   xi=x0;
 
-  erro=0.01;
+  erro=0.00001;
 
   i=0;
 
   if d(xi) == 0
-     fprintf ('no se puede hallar una raiz');
+    fprintf ('no se puede hallar una raiz');
 
-     else
+  else
 
-          xn= xi-(f(xi)/d(xi));
-          fprintf ("____________________________________________\n");
-          fprintf('I                 Xi      Fxi      Dxi    |Ee|  ');
-          fprintf ("\n");
-          fprintf ("____________________________________________\n");
+    xn= xi-(f(xi)/d(xi));
+    fprintf ("____________________________________________\n");
+    fprintf('I                 Xi      Fxi      Dxi    |Ee|  ');
+    fprintf ("\n");
+    fprintf ("____________________________________________\n");
 
-          while errora(xn, xi) > erro
-                fprintf('%.0f\t\t',i);
-                fprintf('%.3f\t',xn);
-                fprintf('%.3f\t',f(xi));
-                fprintf('%.3f\t',d(xi));
-                fprintf('%.3f\t',errora(xn,xi));
-                fprintf ("\n");
-                xi=xn;
-                xn= xi-(f(xi)/d(xi));
-                i++;
+    while errora(xn, xi) > erro && i<100000
+      fprintf('%.0f\t\t',i);
+      fprintf('%.3f\t',xn);
+      fprintf('%.3f\t',f(xi));
+      fprintf('%.3f\t',d(xi));
+      fprintf('%.3f\t',errora(xn,xi));
+      fprintf ("\n");
+      xi=xn;
+      xn= xi-(f(xi)/d(xi));
+      i++;
 
-          endwhile
+    endwhile
 
-                fprintf('%.0f\t\t',i);
-                fprintf('%.5f\t',xn);
-                fprintf('%.5f\t',errora(xn, xi));
-                fprintf ("\n");
+    fprintf('%.0f\t\t',i);
+    fprintf('%.5f\t',xn);
+    fprintf('%.5f\t',errora(xn, xi));
+    fprintf ("\n");
 
-                fprintf ("____________________________________________\n");
-                fprintf('\nLA RAIZ APROXIMADA ES:  %.8f\n', xn);
+    fprintf ("____________________________________________\n");
+    fprintf('\nLA RAIZ APROXIMADA ES:  %.8f\n', xn);
+    
+    % graficar
+    x_graficar = (xn - 1):xn / 20:(xn + 1);
+    
+    plot (x_graficar, f(x_graficar));
 
   endif
+
+  
+  
+  
 endfunction
 
   #funcion que retorna el error aproximado
