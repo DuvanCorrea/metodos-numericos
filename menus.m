@@ -1,7 +1,7 @@
 function menus(str_menu)
-  
+
   switch(str_menu)
-  
+
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   case "biseccion"
     clc;
@@ -71,7 +71,7 @@ function menus(str_menu)
       disp("Error al ejecutar el metodo de biseccion")
       return %borrar
     end_try_catch
-    
+
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   case "falsa pos"
     clc;
@@ -248,7 +248,7 @@ function menus(str_menu)
       disp("Error al ejecutar el metodo newton_raphson")
       disp(err)
       return %borrar
-    end_try_catch  
+    end_try_catch
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   case "secante"
@@ -319,7 +319,7 @@ function menus(str_menu)
       disp("Error al ejecutar el metodo de la Secante")
       return %borrar
     end_try_catch
- 
+
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   case "cramer"
     clc;
@@ -494,7 +494,7 @@ function menus(str_menu)
                 disp("Error al ejecutar el método de minimos cuadrados")
                 return %borrar
               end_try_catch
- 
+
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   case "gauss seidel"
     clc;
@@ -564,10 +564,10 @@ function menus(str_menu)
       disp("Error al ejecutar el metodo de gauss seidel")
       return %borrar
     end_try_catch
- 
+
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   case "interpolacion de newton por diferencias divididas"
- 
+
     clc;
     error = 1; % si es 0 no hay errores
     msg_error = "";
@@ -602,7 +602,7 @@ function menus(str_menu)
 
     error = 1;
     msg_error = "";
-    
+
     % Valor a interpolar
     while(error != 0)
       try
@@ -626,7 +626,7 @@ function menus(str_menu)
         msg_error = "Error en el proceso";
       end_try_catch
     endwhile
-    
+
     try
       interpol_newton_dife_divi(matiz_a, a);
     catch err
@@ -726,6 +726,75 @@ function menus(str_menu)
                 disp("Error al ejecutar el método rk4")
                 return %borrar
               end_try_catch
-              
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  case "punto fijo"
+    clc;
+    error = 1; % si es 0 no hay errores
+    msg_error = "";
+
+    a = 0;
+    funcion = "4*x^2-5*x";
+
+    % pedir x0
+    while(error != 0)
+      try
+        respuesta = inputdlg({"Valor inicial x0"}, "Datos necesarios", 1,{a});
+        a = (str2double(respuesta(1)))
+
+        if(isnan(a))
+          msg_error = "Valor de x0 no válido";
+          disp("Valor de x0 válido");
+          error = 1;
+          questdlg (strcat("ERROR\n",msg_error), "ERROR");
+          continue
+        endif
+
+        error = 0;
+        msg_error = "";
+
+      catch err
+        disp("Error tomando datos x0")
+        disp(err)
+        error = 1;
+        msg_error = "Error en el proceso";
+      end_try_catch
+    endwhile
+
+    error = 1;
+    msg_error = "";
+
+    % Pedir function
+    while(error != 0)
+      try
+        funcion = inputdlg({strcat("Función ejm:"," 4*x^2-5*x")}, "Datos necesarios", 1,{funcion});
+        funcion = funcion{1}
+
+        if(isempty(funcion))
+          msg_error = "Función no válida";
+          disp("Función no válida");
+          error = 1;
+          questdlg (strcat("ERROR\n",msg_error), "ERROR");
+          continue
+        endif
+
+        error = 0;
+        msg_error = "";
+      catch
+        disp("Error pidiendo la funcion")
+        error = 1;
+        msg_error = "Error en el proceso";
+      end_try_catch
+    endwhile
+
+
+    try
+      punto_fijo(a, funcion)
+    catch err
+      disp(err)
+      disp("Error al ejecutar el metodo de punto fijo")
+      return %borrar
+    end_try_catch
+
   endswitch
 endfunction

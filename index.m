@@ -50,7 +50,7 @@ while (opc_sel != 11)
       menus("RK4")
 
     % punto fijo
-    case 9
+    case 10
       menus("punto fijo")
 
     otherwise
