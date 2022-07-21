@@ -1,9 +1,5 @@
 function res = lagrange(a)
   fprintf("***METODO DE LAGRANGE***\n");
-
-  disp("X / Y")
-  disp(a)
-  disp("\n")
   
   X = a(1,:)
   Y = a(2,:)
@@ -19,8 +15,9 @@ function res = lagrange(a)
               V = conv(V, poly(X(r)))/(X(k)-X(r));
           end
       end
-      L(k,:) = V
+      L(k,:) = V;
   end
+  L
   % CALCULO DE LOS COEFICIENTES DEL POLINOMIO INTERPOLADOR
   C=Y*L
   
@@ -41,7 +38,9 @@ function res = lagrange(a)
     i = i+1;
     pos = pos - 1;
   endwhile
-  fun = inline(fun)
+  disp("\n")
+  fun = inline(fun);
+  fun = fun(X);
   
   plot(X,fun);
   
